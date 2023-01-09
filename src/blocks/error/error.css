@@ -1,0 +1,15 @@
+.error {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FF0000;
+    min-height: 28px;
+    display: block;
+    margin: 5px 36px 0 36px;
+    box-sizing: border-box;
+}
+@media screen and (max-width: 700px){
+    .error {
+      margin: 0 22px 0 22px; 
+    }
+  }

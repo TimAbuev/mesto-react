@@ -1,0 +1,12 @@
+.page {
+  font-family: 'Inter', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  max-width: 880px;
+  margin: auto;
+  padding-left: 19px;
+  padding-right: 19px;
+  
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}

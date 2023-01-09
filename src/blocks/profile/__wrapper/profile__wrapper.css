@@ -1,0 +1,18 @@
+.profile__wrapper {
+  margin-left: 30px;
+  margin-top: 72px;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 550px;
+  min-width: 320px;
+}
+@media screen and (max-width: 700px){
+  .profile__wrapper {
+    margin: 26px auto 0;
+    text-align: center;
+    min-width: 282px;
+    max-width: 282px;
+  }
+}

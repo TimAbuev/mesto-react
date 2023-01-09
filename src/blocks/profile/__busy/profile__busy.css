@@ -1,0 +1,18 @@
+.profile__busy {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  margin: 9px 0 0 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width:700px){
+  .profile__busy {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}

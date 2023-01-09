@@ -1,0 +1,8 @@
+.popup-image__wrapper {
+    width: max-content;
+    height: max-content;
+    align-self: center;
+    margin: auto;
+
+    position: relative;
+}

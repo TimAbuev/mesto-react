@@ -1,0 +1,6 @@
+.profile__pencil {
+  width: 26px;
+  height: 26px;
+  background-image: url(../../../../src/images/pencil.svg);
+  visibility: hidden;
+}
