@@ -2,33 +2,42 @@ import '../index.css';
 import Footer from './Footer';
 import Header from './Header.js';
 import Main from './Main.js';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup';
 
 function App() {
+
+  function handleEditAvatarClick() {
+    const popupAvatar = document.querySelector('.popup-avatar');
+    console.log(popupAvatar);
+    popupAvatar.classList.add('popup_opened');
+  }
+  function handleEditProfileClick() {
+    const popupProfile = document.querySelector('.popup-profile');
+    console.log(popupProfile);
+    popupProfile.classList.add('popup_opened');
+  }
+  function handleAddPlaceClick() {
+    const popupMesto = document.querySelector('.popup-mesto');
+    console.log(popupMesto);
+    popupMesto.classList.add('popup_opened');
+  }
+
   return (
 
-<div className="App">
-  <div className="root">
-    <Header />
-    <div className="page">
-      <Main />
-      <Footer />
+    <div className="App">
+      <div className="root">
+        <Header />
+        <div className="page">
+          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
+          <Footer />
+          <PopupWithForm name="profile" children="Редактировать профиль" header="Сохранить" />
+          <PopupWithForm name="mesto" children="Новое место" header="Создать" />
+          <ImagePopup />
+          <PopupWithForm name="are-you-sure" children="Вы уверены?" header="Да" />
+          <PopupWithForm name="avatar" children="Обновить аватар" header="Создать" />
 
-      <div className="popup popup-profile">
-        <div className="popup__container">
-          <button className="popup__close-icon" type="button"></button>
-          <form className="popup__form popup__form_type_form-profile" name="form-edit-profile" noValidate>
-            <h2 className="popup__title">Редактировать профиль</h2>
-            <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40"
-              required id="input-name" />
-            <span className="error input-name-error"></span>
-            <input type="text" className="popup__input popup__input_type_job" name="job" minLength="2" maxLength="200"
-              required id="input-job" />
-            <span className="error input-job-error"></span>
-            <button className="popup__save" type="submit">Сохранить</button>
-          </form>
-        </div>
-      </div>
-      <div className="popup popup-mesto">
+          {/* <div className="popup popup-mesto">
         <div className="popup__container">
           <button className="popup__close-icon" type="button"></button>
           <form className="popup__form popup__form_type_form-mesto" name="form-mesto" noValidate>
@@ -42,15 +51,9 @@ function App() {
             <button disabled className="popup__save popup__save_invalid" type="submit">Создать</button>
           </form>
         </div>
-      </div>
-      <div className="popup popup-image">
-        <div className="popup-image__wrapper">
-          <button className="popup__close-icon" type="button"></button>
-          <img className="popup-image__image" alt="имя картинки вставлять" />
-          <p className="popup-image__caption"></p>
-        </div>
-      </div>
-      <div className="popup popup-are-you-sure">
+      </div> */}
+
+          {/* <div className="popup popup-are-you-sure">
         <div className="popup__container popup__container_type_are-you-sure">
           <button className="popup__close-icon" type="button"></button>
           <h2 className="popup__title">Вы уверены?</h2>
@@ -68,28 +71,29 @@ function App() {
             <button disabled className="popup__save popup__save_invalid" type="submit">Создать</button>
           </form>
         </div>
-      </div>
-    </div>
+      </div> */}
 
-    <template className="template-card">
-      <div className="elements__card">
-        <button className="elements__button-wrapper" type="button">
-          <img alt="имя картинки вставлять" className="elements__image" />
-        </button>
-        <button className="elements__trash"></button>
-        <div className="elements__wrapper">
-          <h2 className="elements__title"></h2>
-          <div className="elements__like-wrapper">
-            <button className="elements__like" type="button"></button>
-            <p className="elements__counter">0</p>
-          </div>
         </div>
+
+        <template className="template-card">
+          <div className="elements__card">
+            <button className="elements__button-wrapper" type="button">
+              <img alt="имя картинки вставлять" className="elements__image" />
+            </button>
+            <button className="elements__trash"></button>
+            <div className="elements__wrapper">
+              <h2 className="elements__title"></h2>
+              <div className="elements__like-wrapper">
+                <button className="elements__like" type="button"></button>
+                <p className="elements__counter">0</p>
+              </div>
+            </div>
+          </div>
+        </template>
+
       </div>
-    </template>
 
-  </div>
-
-</div>
+    </div>
 
   );
 }
