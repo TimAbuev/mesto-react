@@ -1,11 +1,46 @@
+import Api from '../utils/Api.js'
+import React from 'react';
+
 function Main(props) {
-    
+  const [userName, setuserName] = React.useState();
+  const [userDescription , setuserDescription] = React.useState();
+  const [userAvatar, setuserAvatar] = React.useState();
+
+  React.useEffect(() => {
+    fetch(`https://mesto.nomoreparties.co/v1/cohort-54/users/me`, {
+      method: 'GET',
+      headers: {
+        "content-type": "application/json",
+        authorization: "697a4384-2695-44b9-a2ae-a1b7f71813d5"
+      },
+      body: JSON.stringify()
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject({ message: "Ошибка на стороне сервера", res })
+      })
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
+      return () => {
+        console.log('test for return of UseEffect'+ Api._url);
+      };
+   
+    }, []);
+
   return (
+    
     <main className="page__main">
       <section className="profile">
-
+        {/* <Api/> */}
         <div className="profile__info">
-          <div className="profile__avatar" onClick={props.onEditAvatar}>
+          <div className="profile__avatar" onClick={props.onEditAvatar}
+          style={{ backgroundImage: `url(${userAvatar})` }}>
             <div className="profile__pencil"></div>
           </div>
 
