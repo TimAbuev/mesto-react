@@ -3,7 +3,7 @@ function PopupWithForm(props) {
   return (
     <div className={`popup popup-${props.name} ${props.isOpen}`}>
       <div className="popup__container">
-        <button className="popup__close-icon" type="button" onClick={props.onClose}></button>
+        <button className="popup__close-icon" type="button"></button>
         <form className="popup__form popup__form_type_form-profile" name={`form-${props.name}`} noValidate>
           <h2 className="popup__title">{props.children}</h2>
           <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40"

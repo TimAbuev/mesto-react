@@ -21,12 +21,6 @@ function App() {
   function handleAddPlaceClick() {
     setPlacePopupOpen(!isAddPlacePopupOpen);
   }
-  function closeAllPopups() {
-    console.log('test');
-    const openedPopup = document.querySelector('.popup_opened');
-    openedPopup.classList.remove('popup_opened');
-  }
-
 
   return (
 
@@ -36,11 +30,11 @@ function App() {
         <div className="page">
           <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
           <Footer />
-          <PopupWithForm name="profile" children="Редактировать профиль" header="Сохранить" isOpen={isEditProfilePopupOpen && 'popup_opened'} onClose={closeAllPopups}/>
-          <PopupWithForm name="mesto" children="Новое место" header="Создать" isOpen={isAddPlacePopupOpen && 'popup_opened'} onClose={closeAllPopups}/>
+          <PopupWithForm name="profile" children="Редактировать профиль" header="Сохранить" isOpen={isEditProfilePopupOpen && 'popup_opened'} />
+          <PopupWithForm name="mesto" children="Новое место" header="Создать" isOpen={isAddPlacePopupOpen && 'popup_opened'} />
           <ImagePopup />
           <PopupWithForm name="are-you-sure" children="Вы уверены?" header="Да" />
-          <PopupWithForm name="avatar" children="Обновить аватар" header="Создать" isOpen={isEditAvatarPopupOpen && 'popup_opened'} onClose={closeAllPopups}/>
+          <PopupWithForm name="avatar" children="Обновить аватар" header="Создать" isOpen={isEditAvatarPopupOpen && 'popup_opened'} />
         </div>
         <template className="template-card">
           <div className="elements__card">
