@@ -48,7 +48,7 @@ popupAreYouSureInstance.setEventListeners();
 const popupAvatarInstance = new PopupWithForm(popupAvatar, selectors, changeAvatar);
 popupAvatarInstance.setEventListeners();
 popupAvatarInstance.setSubmitEvent();
-const api = new Api();
+const api = new Api(config);
 
 const sectionInstance = new Section({
   renderer: (item) => {
