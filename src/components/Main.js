@@ -1,5 +1,6 @@
 import api from '../utils/Api.js';
 import React from 'react';
+import Card from './Card.js';
 
 function Main(props) {
   const [userName, setuserName] = React.useState();
@@ -19,11 +20,23 @@ function Main(props) {
 
   }, [userName, userDescription]);
 
+  const [cards, setCards] = React.useState([]);
+  React.useEffect(() => {
+    
+    api.getCards()
+      .then(function (res) {
+        console.log(res);
+        setCards(res);
+      })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
+  }, []);
+
   return (
 
     <main className="page__main">
       <section className="profile">
-        {/* <Api/> */}
         <div className="profile__info">
           <div className="profile__avatar" onClick={props.onEditAvatar}
             style={{ backgroundImage: `url(${userAvatar})` }}>
@@ -44,7 +57,11 @@ function Main(props) {
       </section>
 
       <section className="elements">
-
+        {
+          cards.map((card, index) => {
+            return <Card name={card.name} avatar={card.link} likes={card.likes.length} key={index} />
+          })
+        }
       </section>
     </main>
   );
