@@ -1,10 +1,15 @@
 import React from "react";
 
 function Card(props) {
-  return (
-    <div className="elements__card">
-      <button className="elements__button-wrapper" type="button" style={{ backgroundImage: `url(${props.avatar})` }}>
 
+  function handleClick() {
+    props.onCardClick(props.card); //setSelectedCard(card)
+  } 
+
+  return (
+    <div className="elements__card" >
+      <button className="elements__button-wrapper" type="button" >
+        <img alt="имя картинки" className="elements__image" src={`${props.image}`} onClick={handleClick}/>
       </button>
       <button className="elements__trash"></button>
       <div className="elements__wrapper">
