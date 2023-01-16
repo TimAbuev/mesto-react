@@ -40,11 +40,18 @@ function App() {
         <div className="page">
           <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={setSelectedCard} />
           <Footer />
-          <PopupWithForm name="profile" children="Редактировать профиль" header="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
-          <PopupWithForm name="mesto" children="Новое место" header="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-          <ImagePopup close={closeAllPopups} card={selectedCard}/>
-          <PopupWithForm name="are-you-sure" children="Вы уверены?" header="Да" />
-          <PopupWithForm name="avatar" children="Обновить аватар" header="Создать" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+          <PopupWithForm name="profile" children="Редактировать профиль" btnName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+            {/* <input />
+            <input /> */}
+          </PopupWithForm>
+          <PopupWithForm name="mesto" children="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
+            <input />
+          </PopupWithForm>
+          <ImagePopup close={closeAllPopups} card={selectedCard} />
+          <PopupWithForm name="are-you-sure" children="Вы уверены?" btnName="Да" />
+          <PopupWithForm name="avatar" children="Обновить аватар" btnName="Создать" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} >
+
+          </PopupWithForm>
         </div>
 
       </div>

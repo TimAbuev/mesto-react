@@ -3,17 +3,17 @@ import React from 'react';
 import Card from './Card.js';
 
 function Main(props) {
-  const [userName, setuserName] = React.useState();
-  const [userDescription, setuserDescription] = React.useState();
-  const [userAvatar, setuserAvatar] = React.useState();
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api.getProfile()
       .then(function (res) {
-        setuserName(res.name);
-        setuserDescription(res.about);
-        setuserAvatar(res.avatar);
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
       })
       .catch(function (err) {
         console.log('ошибка', err);
