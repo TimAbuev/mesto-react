@@ -40,17 +40,25 @@ function App() {
         <div className="page">
           <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={setSelectedCard} />
           <Footer />
-          <PopupWithForm name="profile" children="Редактировать профиль" btnName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-            {/* <input />
-            <input /> */}
+          <PopupWithForm name="profile" headerName="Редактировать профиль" btnName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} children>
+              <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40"
+                required id="input-name" />
+              <span className="error input-name-error"></span>
+              <input type="text" className="popup__input popup__input_type_job" name="job" minLength="2" maxLength="200"
+                required id="input-job" />
+              <span className="error input-job-error"></span>        
           </PopupWithForm>
-          <PopupWithForm name="mesto" children="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
-            <input />
+
+          <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} children>
+            <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required id="input-name" />
+            <span className="error input-name-error"></span>
           </PopupWithForm>
           <ImagePopup close={closeAllPopups} card={selectedCard} />
-          <PopupWithForm name="are-you-sure" children="Вы уверены?" btnName="Да" />
-          <PopupWithForm name="avatar" children="Обновить аватар" btnName="Создать" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} >
+          <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />
 
+          <PopupWithForm name="avatar" headerName="Обновить аватар" btnName="Создать" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} children>
+            <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required id="input-name" />
+            <span className="error input-name-error"></span>
           </PopupWithForm>
         </div>
 
