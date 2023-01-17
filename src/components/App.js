@@ -21,6 +21,7 @@ function App() {
   function handleAddPlaceClick() {
     setPlacePopupOpen(!isAddPlacePopupOpen);
   }
+
   function handlePopupImgCloseBtnClick() {
     setSelectedCard(!selectedCard);
   }
