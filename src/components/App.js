@@ -10,7 +10,9 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+
 
   function handleEditAvatarClick() {
     setAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -22,15 +24,15 @@ function App() {
     setPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
-  function handlePopupImgCloseBtnClick() {
-    setSelectedCard(!selectedCard);
+  function handlePopupImgClick() {
+    setPopupImageOpen(!isPopupImageOpen);
   }
 
   function closeAllPopups() {
     isEditProfilePopupOpen && handleEditProfileClick();
     isAddPlacePopupOpen && handleAddPlaceClick();
     isEditAvatarPopupOpen && handleEditAvatarClick();
-    selectedCard && handlePopupImgCloseBtnClick();
+    isPopupImageOpen && handlePopupImgClick();
   }
 
   return (
@@ -39,22 +41,24 @@ function App() {
       <div className="root">
         <Header />
         <div className="page">
-          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={setSelectedCard} />
+          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick} setSelectedCard={setSelectedCard} />
           <Footer />
           <PopupWithForm name="profile" headerName="Редактировать профиль" btnName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} children>
-              <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40"
-                required id="input-name" />
-              <span className="error input-name-error"></span>
-              <input type="text" className="popup__input popup__input_type_job" name="job" minLength="2" maxLength="200"
-                required id="input-job" />
-              <span className="error input-job-error"></span>        
+            <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40"
+              required id="input-name" />
+            <span className="error input-name-error"></span>
+            <input type="text" className="popup__input popup__input_type_job" name="job" minLength="2" maxLength="200"
+              required id="input-job" />
+            <span className="error input-job-error"></span>
           </PopupWithForm>
 
           <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} children>
             <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required id="input-name" />
             <span className="error input-name-error"></span>
           </PopupWithForm>
-          <ImagePopup close={closeAllPopups} card={selectedCard} />
+          <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
+            selectedCard={selectedCard}
+          />
           <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />
 
           <PopupWithForm name="avatar" headerName="Обновить аватар" btnName="Создать" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} children>

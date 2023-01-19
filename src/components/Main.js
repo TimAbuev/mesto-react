@@ -8,6 +8,7 @@ function Main(props) {
   const [userAvatar, setUserAvatar] = React.useState(null);
   const [cards, setCards] = React.useState([]);
 
+
   React.useEffect(() => {
     api.getProfile()
       .then(function (res) {
@@ -30,7 +31,7 @@ function Main(props) {
       .catch(function (err) {
         console.log('ошибка', err);
       })
-  }, []);  
+  }, []);
 
   return (
 
@@ -58,7 +59,7 @@ function Main(props) {
       <section className="elements">
         {
           cards.map((card) => {
-            return <Card name={card.name} image={card.link} likes={card.likes.length} onCardClick={props.onCardClick} card={card} close={props.close} key={card._id} />
+            return <Card setSelectedCard={props.setSelectedCard} onCardClick={props.onCardClick} card={card} close={props.close} key={card._id} />
           })
         }
       </section>
