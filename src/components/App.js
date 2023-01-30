@@ -1,5 +1,7 @@
 import React from 'react';
 import '../index.css';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import api from '../utils/Api'
 import Footer from './Footer';
 import Header from './Header.js';
 import Main from './Main.js';
@@ -13,7 +15,7 @@ function App() {
   const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
 
-  const [currentUser , setCurrentUser ] = React.useState({});
+  const [currentUser , setCurrentUser] = React.useState({});
 
   React.useEffect(() => {
     api.getProfile()
@@ -48,7 +50,7 @@ function App() {
   }
 
   return (
-
+  <CurrentUserContext.Provider value={currentUser}>
     <div className="App">
       <div className="root">
         <Header />
@@ -81,6 +83,7 @@ function App() {
 
       </div>
     </div>
+  </CurrentUserContext.Provider>
   );
 }
 
