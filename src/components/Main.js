@@ -1,10 +1,12 @@
 import api from '../utils/Api.js';
 import React from 'react';
 import Card from './Card.js';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { CurrentUserContext} from '../contexts/CurrentUserContext.js';
+import { CardContext } from '../contexts/CardContext.js';
 
 function Main(props) {
   const currentUserContext = React.useContext(CurrentUserContext);
+  // const newContext = React.useContext(NewContext);
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -43,7 +45,9 @@ function Main(props) {
       <section className="elements">
         {
           cards.map((card) => {
-            return <Card setSelectedCard={props.setSelectedCard} onCardClick={props.onCardClick} card={card} close={props.close} key={card._id} />
+            return <CardContext.Provider value={card} key={card._id}>
+                     <Card setSelectedCard={props.setSelectedCard} onCardClick={props.onCardClick} card={card} close={props.close} key={card._id} />      
+                   </CardContext.Provider>    
           })
         }
       </section>
