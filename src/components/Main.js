@@ -6,7 +6,6 @@ import { CardContext } from '../contexts/CardContext.js';
 
 function Main(props) {
   const currentUserContext = React.useContext(CurrentUserContext);
-  // const newContext = React.useContext(NewContext);
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -18,6 +17,19 @@ function Main(props) {
         console.log('ошибка', err);
       })
   }, []);
+
+  function handleCardLike(card) { //каждая в отдельности отрендеренная карточка
+    
+    // Снова проверяем, есть ли уже лайк на этой карточке (поставленный нами)
+    const isLiked = card.likes.some(i => i._id === currentUserContext._id); 
+    
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, isLiked)
+    .then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c)); // c = 
+        //console.log(isLiked);
+    });
+} 
 
   return (
 
@@ -46,7 +58,7 @@ function Main(props) {
         {
           cards.map((card) => {
             return <CardContext.Provider value={card} key={card._id}>
-                     <Card setSelectedCard={props.setSelectedCard} onCardClick={props.onCardClick} card={card} close={props.close} key={card._id} />      
+                     <Card setSelectedCard={props.setSelectedCard} onCardLike={handleCardLike} onCardClick={props.onCardClick} card={card} close={props.close} key={card._id}/>      
                    </CardContext.Provider>    
           })
         }

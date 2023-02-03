@@ -22,6 +22,10 @@ function Card(props) {
     props.setSelectedCard(cardContext);
   }
 
+  function handleLikeClick () {
+    props.onCardLike(cardContext);
+  }
+
   return (
     <div className="elements__card" >
       <button className="elements__button-wrapper" type="button" >
@@ -31,7 +35,7 @@ function Card(props) {
       <div className="elements__wrapper">
         <h2 className="elements__title">{cardContext.name}</h2>
         <div className="elements__like-wrapper">
-          <button className={cardLikeButtonClassName} type="button"></button>
+          <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick}></button>
           <p className="elements__counter">{cardContext.likes.length}</p>
         </div>
       </div>

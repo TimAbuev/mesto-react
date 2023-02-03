@@ -14,7 +14,6 @@ function App() {
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
-
   const [currentUser , setCurrentUser] = React.useState({});
 
   React.useEffect(() => {
@@ -55,7 +54,8 @@ function App() {
       <div className="root">
         <Header />
         <div className="page">
-          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick} setSelectedCard={setSelectedCard} />
+          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick}
+           setSelectedCard={setSelectedCard}/>
           <Footer />
           <PopupWithForm name="profile" headerName="Редактировать профиль" btnName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} children>
             <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40"

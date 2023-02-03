@@ -17,6 +17,29 @@ class Api {
     return fetch(`${this._url}/v1/cohort-54/cards`, { headers: this._headers })
       .then(this.#onResponse);
   }
+
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._url}/v1/cohort-54/cards/${id}/likes`, {
+        method: 'DELETE',
+        headers: this._headers  
+      })
+        .then(this.#onResponse);
+    }
+    else {
+      return fetch(`${this._url}/v1/cohort-54/cards/${id}/likes`, {
+        method: 'PUT',
+        headers: this._headers  
+      })
+        .then(this.#onResponse);
+    }
+  }
+
+
+
+
+
+  
   getProfile() {
     return fetch(`${this._url}/v1/cohort-54/users/me`, { headers: this._headers })
       .then(this.#onResponse);
