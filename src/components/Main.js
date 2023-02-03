@@ -26,10 +26,22 @@ function Main(props) {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, isLiked)
     .then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c)); // c = 
-        //console.log(isLiked);
-    });
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    })
+    .catch(function (err) {
+      console.log('ошибка', err);
+    })
 } 
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+    .then((nc) => {
+      setCards((state) => state.filter((c) => c._id !== card._id));
+    })
+    .catch(function (err) {
+      console.log('ошибка', err);
+    })
+  }
 
   return (
 
@@ -58,7 +70,8 @@ function Main(props) {
         {
           cards.map((card) => {
             return <CardContext.Provider value={card} key={card._id}>
-                     <Card setSelectedCard={props.setSelectedCard} onCardLike={handleCardLike} onCardClick={props.onCardClick} card={card} close={props.close} key={card._id}/>      
+                     <Card setSelectedCard={props.setSelectedCard} onCardLike={handleCardLike} onCardClick={props.onCardClick} card={card}
+                      close={props.close} key={card._id} onCardDelete={handleCardDelete}/>      
                    </CardContext.Provider>    
           })
         }

@@ -13,6 +13,7 @@ class Api {
       authorization: "697a4384-2695-44b9-a2ae-a1b7f71813d5"
     };
   }
+
   getCards() {
     return fetch(`${this._url}/v1/cohort-54/cards`, { headers: this._headers })
       .then(this.#onResponse);
@@ -35,15 +36,21 @@ class Api {
     }
   }
 
-
-
-
-
-  
   getProfile() {
     return fetch(`${this._url}/v1/cohort-54/users/me`, { headers: this._headers })
       .then(this.#onResponse);
   }
+
+  deleteCard(id) {
+    return fetch(`${this._url}/v1/cohort-54/cards/${id}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(this.#onResponse);
+  }
+
+
+
   editInfo(data) {
     return fetch(`${this._url}/v1/cohort-54/users/me`, {
       method: 'PATCH',
@@ -60,13 +67,7 @@ class Api {
     })
       .then(this.#onResponse);
   }
-  deleteCard(id) {
-    return fetch(`${this._url}/v1/cohort-54/cards/${id}`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
-      .then(this.#onResponse);
-  }
+
   addLike(id) {
     return fetch(`${this._url}/v1/cohort-54/cards/${id}/likes`, {
       method: 'PUT',

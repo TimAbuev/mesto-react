@@ -26,12 +26,16 @@ function Card(props) {
     props.onCardLike(cardContext);
   }
 
+  function handleDeleteClick() {
+    props.onCardDelete(cardContext);
+  }
+
   return (
     <div className="elements__card" >
       <button className="elements__button-wrapper" type="button" >
         <img alt="имя картинки" className="elements__image" src={`${cardContext.link}`} onClick={handleClick} />
       </button>
-      {isOwn && <button className='elements__trash' />}
+      {isOwn && <button className='elements__trash' onClick={handleDeleteClick} />}
       <div className="elements__wrapper">
         <h2 className="elements__title">{cardContext.name}</h2>
         <div className="elements__like-wrapper">
