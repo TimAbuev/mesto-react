@@ -49,8 +49,6 @@ class Api {
       .then(this.#onResponse);
   }
 
-
-
   editInfo(data) {
     return fetch(`${this._url}/v1/cohort-54/users/me`, {
       method: 'PATCH',
@@ -59,6 +57,8 @@ class Api {
     })
       .then(this.#onResponse);
   }
+
+
   postCard(data) {
     return fetch(`${this._url}/v1/cohort-54/cards`, {
       method: 'POST',
