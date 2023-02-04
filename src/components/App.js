@@ -62,14 +62,14 @@ function App() {
   }
 
   function handleUpdateAvatar(data) {
-    api.setUserAvatar(data) 
-    .then(function (res) {
-      setCurrentUser(res)
-      closeAllPopups();
-    })
-    .catch(function (err) {
-      console.log('ошибка', err);
-    })
+    api.setUserAvatar(data)
+      .then(function (res) {
+        setCurrentUser(res)
+        closeAllPopups();
+      })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
   }
 
   return (
@@ -83,12 +83,16 @@ function App() {
             <Footer />
             <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
             <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} children>
-              <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required id="input-name" />
+              <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" placeholder="Название"
+                required id="input-name" />
               <span className="error input-name-error"></span>
+
+              <input type="url" class="popup__input popup__input_type_card-src" name="link" placeholder="Ссылка на картинку"
+                required id="input-link" />
+              <span class="error input-link-error"></span>
             </PopupWithForm>
             <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
-              selectedCard={selectedCard}
-            />
+              selectedCard={selectedCard}/>
             <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />
 
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
