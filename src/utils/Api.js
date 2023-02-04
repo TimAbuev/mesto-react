@@ -36,6 +36,15 @@ class Api {
     }
   }
 
+  setUserAvatar(data) {
+    return fetch(`${this._url}/v1/cohort-54/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+      .then(this.#onResponse);
+  }
+
   getProfile() {
     return fetch(`${this._url}/v1/cohort-54/users/me`, { headers: this._headers })
       .then(this.#onResponse);
@@ -82,14 +91,7 @@ class Api {
     })
       .then(this.#onResponse);
   }
-  postAvatar(data) {
-    return fetch(`${this._url}/v1/cohort-54/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify(data)
-    })
-      .then(this.#onResponse);
-  }
+
 
 }
 

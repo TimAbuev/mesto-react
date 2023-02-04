@@ -8,6 +8,7 @@ import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
@@ -15,7 +16,7 @@ function App() {
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser , setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
 
   React.useEffect(() => {
     api.getProfile()
@@ -51,8 +52,19 @@ function App() {
 
   function handleUpdateUser(data) {
     api.editInfo(data)
-    .then(function(res) {
-      setCurrentUser(res);
+      .then(function (res) {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
+  }
+
+  function handleUpdateAvatar(data) {
+    api.setUserAvatar(data) 
+    .then(function (res) {
+      setCurrentUser(res)
       closeAllPopups();
     })
     .catch(function (err) {
@@ -61,33 +73,29 @@ function App() {
   }
 
   return (
-  <CurrentUserContext.Provider value={currentUser}>
-    <div className="App">
-      <div className="root">
-        <Header />
-        <div className="page">
-          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick}
-           setSelectedCard={setSelectedCard}/>
-          <Footer />
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
-          <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} children>
-            <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required id="input-name" />
-            <span className="error input-name-error"></span>
-          </PopupWithForm>
-          <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
-            selectedCard={selectedCard}
-          />
-          <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
+        <div className="root">
+          <Header />
+          <div className="page">
+            <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick}
+              setSelectedCard={setSelectedCard} />
+            <Footer />
+            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+            <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} children>
+              <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required id="input-name" />
+              <span className="error input-name-error"></span>
+            </PopupWithForm>
+            <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
+              selectedCard={selectedCard}
+            />
+            <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />
 
-          <PopupWithForm name="avatar" headerName="Обновить аватар" btnName="Создать" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} children>
-            <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" required id="input-name" />
-            <span className="error input-name-error"></span>
-          </PopupWithForm>
+            <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+          </div>
         </div>
-
       </div>
-    </div>
-  </CurrentUserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
