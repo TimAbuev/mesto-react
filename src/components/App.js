@@ -1,6 +1,7 @@
 import React from 'react';
 import '../index.css';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { CardContext } from '../contexts/CardContext';
 import api from '../utils/Api'
 import Footer from './Footer';
 import Header from './Header.js';
@@ -17,6 +18,17 @@ function App() {
   const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+
+  React.useEffect(() => {
+    api.getCards()
+      .then(function (res) {
+        setCards(res);
+      })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
+  }, []);
 
   React.useEffect(() => {
     api.getProfile()
@@ -72,6 +84,31 @@ function App() {
       })
   }
 
+  function handleCardLike(card) { //каждая в отдельности отрендеренная карточка
+
+    // Снова проверяем, есть ли уже лайк на этой карточке (поставленный нами)
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then((nc) => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+      })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -79,7 +116,8 @@ function App() {
           <Header />
           <div className="page">
             <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick}
-              setSelectedCard={setSelectedCard} />
+              setSelectedCard={setSelectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} cards={cards}/>
+
             <Footer />
             <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
             <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} children>
@@ -92,9 +130,8 @@ function App() {
               <span class="error input-link-error"></span>
             </PopupWithForm>
             <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
-              selectedCard={selectedCard}/>
+              selectedCard={selectedCard} />
             <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />
-
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
           </div>
         </div>

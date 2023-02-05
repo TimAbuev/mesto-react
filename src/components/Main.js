@@ -1,47 +1,10 @@
-import api from '../utils/Api.js';
 import React from 'react';
 import Card from './Card.js';
-import { CurrentUserContext} from '../contexts/CurrentUserContext.js';
 import { CardContext } from '../contexts/CardContext.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Main(props) {
   const currentUserContext = React.useContext(CurrentUserContext);
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api.getCards()
-      .then(function (res) {
-        setCards(res);
-      })
-      .catch(function (err) {
-        console.log('ошибка', err);
-      })
-  }, []);
-
-  function handleCardLike(card) { //каждая в отдельности отрендеренная карточка
-    
-    // Снова проверяем, есть ли уже лайк на этой карточке (поставленный нами)
-    const isLiked = card.likes.some(i => i._id === currentUserContext._id); 
-    
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, isLiked)
-    .then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    })
-    .catch(function (err) {
-      console.log('ошибка', err);
-    })
-} 
-
-  function handleCardDelete(card) {
-    api.deleteCard(card._id)
-    .then((nc) => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
-    })
-    .catch(function (err) {
-      console.log('ошибка', err);
-    })
-  }
 
   return (
 
@@ -68,11 +31,11 @@ function Main(props) {
 
       <section className="elements">
         {
-          cards.map((card) => {
+          props.cards.map((card) => {
             return <CardContext.Provider value={card} key={card._id}>
-                     <Card setSelectedCard={props.setSelectedCard} onCardLike={handleCardLike} onCardClick={props.onCardClick} card={card}
-                      close={props.close} key={card._id} onCardDelete={handleCardDelete}/>      
-                   </CardContext.Provider>    
+                      <Card setSelectedCard={props.setSelectedCard} onCardClick={props.onCardClick} card={card}
+                        close={props.close} key={card._id} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} />
+                    </CardContext.Provider>
           })
         }
       </section>
