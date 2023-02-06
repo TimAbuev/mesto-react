@@ -33,8 +33,8 @@ function Main(props) {
         {
           props.cards.map((card) => {
             return <CardContext.Provider value={card} key={card._id}>
-                      <Card setSelectedCard={props.setSelectedCard} onCardClick={props.onCardClick} card={card}
-                        close={props.close} key={card._id} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} />
+                      <Card onCardClick={props.onCardClick} setSelectedCard={props.setSelectedCard} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}
+                        key={card._id} />
                     </CardContext.Provider>
           })
         }

@@ -1,7 +1,6 @@
 import React from 'react';
 import '../index.css';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { CardContext } from '../contexts/CardContext';
 import api from '../utils/Api'
 import Footer from './Footer';
 import Header from './Header.js';
@@ -10,6 +9,7 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
@@ -73,6 +73,14 @@ function App() {
       })
   }
 
+  function handleAddPlaceSubmit(data) {
+    api.postCard(data)
+      .then(function (res) {
+        setCards([res, ...cards]);
+        closeAllPopups();
+      })
+  }
+
   function handleUpdateAvatar(data) {
     api.setUserAvatar(data)
       .then(function (res) {
@@ -84,7 +92,7 @@ function App() {
       })
   }
 
-  function handleCardLike(card) { //каждая в отдельности отрендеренная карточка
+  function handleCardLike(card) {
 
     // Снова проверяем, есть ли уже лайк на этой карточке (поставленный нами)
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -116,19 +124,10 @@ function App() {
           <Header />
           <div className="page">
             <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick}
-              setSelectedCard={setSelectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} cards={cards}/>
-
+              setSelectedCard={setSelectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} cards={cards} />
             <Footer />
             <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-            <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} children>
-              <input type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" placeholder="Название"
-                required id="input-name" />
-              <span className="error input-name-error"></span>
-
-              <input type="url" class="popup__input popup__input_type_card-src" name="link" placeholder="Ссылка на картинку"
-                required id="input-link" />
-              <span class="error input-link-error"></span>
-            </PopupWithForm>
+            <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
             <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
               selectedCard={selectedCard} />
             <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />

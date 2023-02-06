@@ -8,6 +8,7 @@ function EditProfilePopup(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
+  //Выставляем в поля текущие значения
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
