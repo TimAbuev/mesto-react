@@ -79,6 +79,9 @@ function App() {
         setCards([res, ...cards]);
         closeAllPopups();
       })
+      .catch(function (err) {
+        console.log('ошибка', err);
+      })
   }
 
   function handleUpdateAvatar(data) {
