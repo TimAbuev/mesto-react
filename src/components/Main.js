@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from './Card.js';
-import { CardContext } from '../contexts/CardContext.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Main(props) {
@@ -32,10 +31,8 @@ function Main(props) {
       <section className="elements">
         {
           props.cards.map((card) => {
-            return <CardContext.Provider value={card} key={card._id}>
-                      <Card onCardClick={props.onCardClick} setSelectedCard={props.setSelectedCard} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}
-                        key={card._id} />
-                    </CardContext.Provider>
+            return <Card onCardClick={props.onCardClick} setSelectedCard={props.setSelectedCard} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}
+                    key={card._id} card={card}/>
           })
         }
       </section>

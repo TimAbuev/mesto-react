@@ -1,16 +1,14 @@
 import React from "react";
-import { CardContext } from '../contexts/CardContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card(props) {
-  const cardContext = React.useContext(CardContext);
   const currentUserContext = React.useContext(CurrentUserContext);
 
   // Определяем, являемся ли мы владельцем текущей карточки
-  const isOwn = cardContext.owner._id === currentUserContext._id;
+  const isOwn = props.card.owner._id === currentUserContext._id;
 
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-  const isLiked = cardContext.likes.some(i => i._id === currentUserContext._id);
+  const isLiked = props.card.likes.some(i => i._id === currentUserContext._id);
 
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = (
@@ -18,29 +16,29 @@ function Card(props) {
   );
 
   function handleClick() {
-    props.onCardClick(cardContext); //setPopupImageOpen(card)
-    props.setSelectedCard(cardContext);
+    props.onCardClick(props.card); //setPopupImageOpen(card)
+    props.setSelectedCard(props.card);
   }
 
   function handleLikeClick () {
-    props.onCardLike(cardContext);
+    props.onCardLike(props.card);
   }
 
   function handleDeleteClick() {
-    props.onCardDelete(cardContext);
+    props.onCardDelete(props.card);
   }
 
   return (
     <div className="elements__card" >
       <button className="elements__button-wrapper" type="button" >
-        <img alt="имя картинки" className="elements__image" src={`${cardContext.link}`} onClick={handleClick} />
+        <img alt="имя картинки" className="elements__image" src={`${props.card.link}`} onClick={handleClick} />
       </button>
       {isOwn && <button className='elements__trash' onClick={handleDeleteClick} />}
       <div className="elements__wrapper">
-        <h2 className="elements__title">{cardContext.name}</h2>
+        <h2 className="elements__title">{props.card.name}</h2>
         <div className="elements__like-wrapper">
           <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick}></button>
-          <p className="elements__counter">{cardContext.likes.length}</p>
+          <p className="elements__counter">{props.card.likes.length}</p>
         </div>
       </div>
     </div>
